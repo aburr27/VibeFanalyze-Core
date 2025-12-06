@@ -1,31 +1,46 @@
 # Vibe-Fanalyze 🎧📊
 
-A multi-sport analytics with chatbot API using FastAPI, MySQL, and MongoDB. And a prediction assistant for fans, fantasy players, and stat lovers. Supports NFL, NBA, MLB, WNBA, UFC, NHL, and MLS
+A Multi-Sport Analytics Platform + Betting & Fantasy AI Assistant
+Built with FastAPI, MySQL, MongoDB, React, and machine-learning driven prediction models.
+Vibe-Fanalyze brings together sports analytics, fantasy insights, and sports-betting math (Kelly Criterion) into one unified platform for:
+✔️ Bettors
+✔️ Fantasy players
+✔️ Analysts
+✔️ Coaches
+✔️ Stat nerds
+✔️ Fans who just love data
 
-Vibe-Fanalyze is a smart multi-sport analytics and prediction assistant for fantasy managers, sports bettors, and stat junkies. It supports:
+## 🏆 Supported Leagues
 
-- 🏈 NFL
-- 🏀 NBA
-- ⚾ MLB
-- 🏀 WNBA
-- 🥋 UFC
-- 🏒 NHL
-- ⚽ MLS
+League Status
+🏈 NFL ✅ Active
+🏀 NBA ✅ Active
+⚾ MLB 🔧 In Progress
+🏀 WNBA 🔧 In Progress
+🏒 NHL 🔧 In Progress
+🥋 UFC 🔧 In Progress
+⚽ MLS 🔧 In Progress
 
-## 🎯 Features
+## ✨ Key Features
 
-- 🔍 Player & team stat lookups
-- 📊 Team comparisons
-- 🗓️ Game schedule queries
-- 🔮 Win/loss predictions
-- 🧮 Fantasy points calculator
-- ✏️ Add/edit/delete sports data
-- 💬 Chat-like interface for natural queries
-- 💸 Sports betting odds integration
+🔍 Searchable player, team, and game stats
+📊 Model-driven prediction engine
+💸 Kelly Criterion stake sizing
+🧠 AI-powered chat assistant (/chat)
+🗓️ Schedule queries & match insights
+📈 Game detail breakdowns with suggested picks
+📂 FastAPI modular endpoints by sport
+💬 Frontend UI with bet slip, dashboards & analytics
+🔥 Designed for real-time sportsbook integrations (future)
 
 ## ⚙️ Tech Stack
 
-- **Backend:** Python (FastAPI or Flask)
+- **Modeling:** Custom predictions + Kelly Criterion Engine
+- **ORM / ODM:** SQLAlchemy + Pydantic
+- **DevOps Docker:** (in progress)
+- **Data Ingest:** APIs like TheSportsDB, The Odds API (planned)
+- **Backend:** FastAPI (Python)
+- **Frontend:** React + TypeScript
 - **Database:** MySQL (structured) + MongoDB (flexible data)
 - **Data Sources (planned):** TheSportsDB, The Odds API, etc.
 - **Version Control:** Git + GitHub
@@ -68,7 +83,7 @@ Vibe-Fanalyze/
     - `app_factory.py`      # create_app() for testing/flexibility
     - `logging.py`          # central logging config
     - `exceptions.py`       # custom error handling
-    - `settings.py`        # Environment/configuration management 
+    - `settings.py`        # Environment/configuration management
   - `db/`                  # DB connectors (MySQL/Mongo)
     - `mysql_connector.py`
     - `mongodb_connector.py`
@@ -223,10 +238,18 @@ Vibe-Fanalyze/
 - `LICENSE`
 - `.gitignore`
 
-## 📌 License
+## 📜 License
 
-MIT License
-Let’s build something fans *vibe* with.
+MIT — Free to use, modify, and extend.
+If you build something cool, tag it: #VibeFanalyze
+
+## 🤝 Contributing
+
+PRs welcome.
+If you'd like to contribute:
+Fork
+Create a feature branch
+Submit a pull request
 
 ## 🧮 Kelly Criterion Sports Betting Predictor
 
@@ -242,12 +265,56 @@ It’s designed for **NFL**, but you can easily adapt it to other sports.
 
 The `data/example_bet_data.csv` file contains a sample matchup used by `src/main.py`.
 
+## 🚀 Running the Backend
+
+git clone <https://github.com/yourusername/vibe-fanalyze.git>
+cd vibe-fanalyze
+python -m venv .venv
+source .venv/bin/activate  # mac/linux
+venv\Scripts\activate      # windows
+
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+
+Backend will run at:
+
+➡️ <http://localhost:8000>
+➡️ Docs: <http://localhost:8000/docs>
+
 ## ⚙️ Core Formula
 
 1. Create a Python environment (Python 3.8+ recommended)
 2. Install dependencies: `pip install -r requirements.txt`
 3. Run the example: `python src/main.py`
 The `data/example_bet_data.csv` file contains a sample matchup used by `src/main.py`.
+
+## 🖥️ Running the Frontend
+
+cd frontend
+npm install
+npm run dev
+
+Frontend runs on:
+➡️ <http://localhost:5173/> (Vite default)
+
+## 🧪 Testing
+
+pytest -q
+
+## 🧠 Prediction & Betting Engine
+
+This project includes a Kelly Criterion predictor module used for optimal stake sizing based on expected value:
+
+Formula: Kelly % = ((P * (B + 1)) - 1) / B
+
+Where:
+P = model-estimated win probability
+B = decimal odds minus 1
+
+This powers:
+💰 Bet sizing recommendations
+📈 Bankroll simulation
+🧮 Expected value (EV) calculations
 
 ## 🔮 Predictions
 
@@ -263,6 +330,19 @@ It outputs:
 - **Predicted Win Probability**
 - **Expected Value**
 - **Recommended Bet Size**
+
+## 🗺️ Roadmap
+
+Feature Status
+Base Stats API ✅
+API Versioning ✅
+Chatbot Assistant 🟡
+Kelly Betting Engine 🟡
+Full React UI 🟡
+Authentication / Profiles 🔜
+Live Odds Integrations 🔜
+Real-time bets + bankroll tracker 🔜
+Mobile App (React Native) 🔜
 
 ## 📊 Example Run
 

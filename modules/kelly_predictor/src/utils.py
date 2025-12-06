@@ -32,27 +32,37 @@ def implied_prob_from_decimal(decimal_odds: float) -> Optional[float]:
 
 def load_games_from_csv(path: str) -> List[GameRow]:
     rows = []
+
+    def safe_float(value: Any, default: Optional[float] = None) -> Optional[float]:
+        if value is None:
+            return default
+        s = str(value).strip()
+        if s == '':
+            return default
+        try:
+            return float(s)
+        except Exception:
+            return default
+
+    def parse_decimal_from_row(r: Dict[str, Any]) -> Optional[float]:
+        # try American odds first, then Decimal Odds field
+        dec = american_to_decimal(r.get('Odds Offered'))
+        if dec is not None:
+            return dec
+        return safe_float(r.get('Decimal Odds'), None)
+
     with open(path, newline='', encoding='utf-8') as fh:
         reader = csv.DictReader(fh)
         for r in reader:
             # parse ratings and odds with safe fallbacks
-            try:
-                tr = float(r.get('Team Rating')) if r.get('Team Rating') else None
-            except:
-                tr = None
-            try:
-                orr = float(r.get('Opponent Rating')) if r.get('Opponent Rating') else None
-            except:
-                orr = None
-            dec = american_to_decimal(r.get('Odds Offered')) or (float(r.get('Decimal Odds')) if r.get('Decimal Odds') else None)
-            try:
-                bank = float(r.get('Bankroll')) if r.get('Bankroll') else None
-            except:
-                bank = None
-            try:
-                kadj = float(r.get('Kelly Adj.')) if r.get('Kelly Adj.') else 0.5
-            except:
+            tr = safe_float(r.get('Team Rating'))
+            orr = safe_float(r.get('Opponent Rating'))
+            dec = parse_decimal_from_row(r)
+            bank = safe_float(r.get('Bankroll'))
+            kadj = safe_float(r.get('Kelly Adj.'), 0.5)
+            if kadj is None:
                 kadj = 0.5
+
             gr = GameRow(
                 date = r.get('Date',''),
                 team = r.get('Team',''),
